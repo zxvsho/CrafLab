@@ -8,6 +8,7 @@ CrafLab es una aplicación web para organizar la gestión académica de una inst
 - **Docentes:** consulta de grupos y estudiantes asignados, y registro y actualización de sus calificaciones.
 - **Estudiantes:** consulta de sus propias matrículas, asignaturas y calificaciones.
 - **Proyectos y tareas:** conserva las funciones existentes de organización y seguimiento de actividades.
+- **Informes descargables:** exporta los resúmenes de proyectos y tareas finalizadas recientes o pendientes/vencidas a un CSV compatible con Excel.
 - **Acceso por usuario:** al crear una cuenta se pide un solo nombre, que también sirve como usuario de acceso y nombre del perfil; el apellido es opcional y el correo se usa para registrar la cuenta.
 - **Paletas visuales:** ofrece temas retro como Everforest, Dracula, Gruvbox, Rosé Pine, Tokyo Night, Catppuccin y Kanagawa, además de un tema claro. `Alt+T` abre el selector de temas.
 

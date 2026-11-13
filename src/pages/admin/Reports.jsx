@@ -4,6 +4,23 @@ import StatusBadge from '../../components/ui/StatusBadge'
 import { supabase } from '../../lib/supabaseClient'
 import { formatDate, formatDateTime, isOverdue } from '../../lib/utils'
 
+const csvHeaders = [
+  'Tipo de registro',
+  'Proyecto',
+  'Tarea',
+  'Estado',
+  'Prioridad',
+  'Fecha límite',
+  'Fecha completada',
+  'Tareas finalizadas',
+  'Tareas totales',
+  'Avance (%)',
+]
+
+function csvCell(value) {
+  return `"${String(value ?? '').replaceAll('"', '""')}"`
+}
+
 export default function Reports() {
   const [projects, setProjects] = useState([])
   const [tasks, setTasks] = useState([])
@@ -77,15 +94,77 @@ export default function Reports() {
     return tasks.filter((task) => task.status && isOverdue(task.due_date, task.status))
   }, [tasks])
 
+  function downloadCsv() {
+    const projectRows = projectSummaries.map((project) => [
+      'Resumen de proyecto',
+      project.name,
+      '',
+      '',
+      '',
+      project.deadline,
+      '',
+      project.completedTasks,
+      project.totalTasks,
+      project.percentage,
+    ])
+    const completedTaskRows = completedLast7Days.map((task) => [
+      'Tarea finalizada (últimos 7 días)',
+      projectById[task.project_id]?.name || 'Proyecto sin nombre',
+      task.title,
+      task.status,
+      task.priority,
+      task.due_date,
+      task.completed_at,
+      '',
+      '',
+      '',
+    ])
+    const overdueTaskRows = overdueTasks.map((task) => [
+      'Tarea pendiente/vencida',
+      projectById[task.project_id]?.name || 'Proyecto sin nombre',
+      task.title,
+      task.status,
+      task.priority,
+      task.due_date,
+      task.completed_at,
+      '',
+      '',
+      '',
+    ])
+    const csv = [csvHeaders, ...projectRows, ...completedTaskRows, ...overdueTaskRows]
+      .map((row) => row.map(csvCell).join(';'))
+      .join('\r\n')
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `informe-craflab-${new Date().toISOString().slice(0, 10)}.csv`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    window.setTimeout(() => URL.revokeObjectURL(url), 0)
+  }
+
   if (loading) {
     return <div className="rounded-xl border border-outline-variant bg-surface p-6 text-body-sm font-body-sm text-on-surface-variant">Cargando reportes...</div>
   }
 
   return (
     <div className="space-y-gutter">
-      <div>
-        <h2 className="text-headline-lg font-headline-lg text-on-surface">Informes</h2>
-        <p className="mt-1 text-body-md font-body-md text-on-surface-variant">Seguimiento de progreso y alertas de tareas.</p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-headline-lg font-headline-lg text-on-surface">Informes</h2>
+          <p className="mt-1 text-body-md font-body-md text-on-surface-variant">Seguimiento de progreso y alertas de tareas.</p>
+        </div>
+        <button
+          type="button"
+          disabled={Boolean(error)}
+          onClick={downloadCsv}
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-label-md font-label-md text-on-primary disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <span className="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+          Descargar CSV
+        </button>
       </div>
 
       {error ? (
