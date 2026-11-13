@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTheme } from '../../hooks/useTheme'
 
 export default function ThemeSwitcher() {
-  const { theme, themes, setTheme } = useTheme()
-  const [open, setOpen] = useState(false)
+  const { theme, themes, setTheme, menuOpen: open, setMenuOpen: setOpen } = useTheme()
   const containerRef = useRef(null)
   const triggerRef = useRef(null)
 
   useEffect(() => {
     if (!open) return undefined
+
+    const frame = window.requestAnimationFrame(() => {
+      containerRef.current?.querySelector('[aria-pressed="true"]')?.focus()
+    })
 
     function closeOnOutsideClick(event) {
       if (!containerRef.current?.contains(event.target)) setOpen(false)
@@ -23,10 +26,11 @@ export default function ThemeSwitcher() {
     document.addEventListener('pointerdown', closeOnOutsideClick)
     document.addEventListener('keydown', closeOnEscape)
     return () => {
+      window.cancelAnimationFrame(frame)
       document.removeEventListener('pointerdown', closeOnOutsideClick)
       document.removeEventListener('keydown', closeOnEscape)
     }
-  }, [open])
+  }, [open, setOpen])
 
   return (
     <div ref={containerRef} className="relative">
@@ -37,6 +41,7 @@ export default function ThemeSwitcher() {
         aria-label={`Cambiar tema. Tema actual: ${theme.label}`}
         aria-expanded={open}
         aria-controls="theme-options"
+        aria-haspopup="true"
         onClick={() => setOpen((isOpen) => !isOpen)}
       >
         <span className="material-symbols-outlined text-[18px]" aria-hidden="true">{theme.icon}</span>
@@ -71,7 +76,7 @@ export default function ThemeSwitcher() {
               {theme.id === option.id ? <span className="material-symbols-outlined text-[18px]" aria-hidden="true">check</span> : null}
             </button>
           ))}
-          <p className="px-3 pb-1 pt-2 text-[10px] text-on-surface-variant">T para recorrer paletas</p>
+          <p className="px-3 pb-1 pt-2 text-[10px] text-on-surface-variant">T para abrir o cerrar este menú</p>
         </div>
       ) : null}
     </div>

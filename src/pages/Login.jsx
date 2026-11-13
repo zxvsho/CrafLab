@@ -6,6 +6,7 @@ import ThemeSwitcher from '../components/layout/ThemeSwitcher'
 export default function Login() {
   const navigate = useNavigate()
   const { user, profile, profileLoading, signIn, signUp } = useAuth()
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
   const [password, setPassword] = useState('')
@@ -35,10 +36,10 @@ export default function Login() {
     setSuccess('')
 
     if (mode === 'register') {
-      const { error: signUpError } = await signUp(email, password, fullName)
+      const { error: signUpError } = await signUp(email, password, fullName, username)
 
       if (signUpError) {
-        setError('No se pudo crear la cuenta. Revisa los datos e inténtalo de nuevo.')
+        setError('No se pudo crear la cuenta. El usuario puede estar ocupado o los datos no ser válidos.')
       } else {
         setSuccess('Cuenta creada. Si tu proyecto requiere confirmación de correo, revisa tu bandeja de entrada.')
         setMode('login')
@@ -48,7 +49,7 @@ export default function Login() {
       return
     }
 
-    const { error: signInError } = await signIn(email, password)
+    const { error: signInError } = await signIn(username, password)
 
     if (signInError) {
       setError('No se pudo iniciar sesión. Verifica tus credenciales y que tu perfil esté habilitado.')
@@ -75,42 +76,89 @@ export default function Login() {
 
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
           {mode === 'register' ? (
+            <>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="username">
+                  Nombre de usuario
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
+                  <input
+                    id="username"
+                    className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
+                    placeholder="ej. miguel95"
+                    required
+                    type="text"
+                    autoComplete="username"
+                    minLength={3}
+                    maxLength={32}
+                    pattern="[A-Za-z0-9._-]{3,32}"
+                    title="Usa de 3 a 32 letras, números, puntos, guiones o guiones bajos."
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                  />
+                </div>
+                <p className="text-xs text-on-surface-variant">Este será el nombre para iniciar sesión.</p>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="fullName">
+                  Nombre completo
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">badge</span>
+                  <input
+                    id="fullName"
+                    className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
+                    placeholder="Tu nombre y apellido"
+                    required
+                    type="text"
+                    value={fullName}
+                    onChange={(event) => setFullName(event.target.value)}
+                  />
+                </div>
+              </div>
+            </>
+          ) : null}
+
+          {mode === 'register' ? (
             <div className="flex flex-col gap-1.5">
-              <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="fullName">
-                Nombre completo
+              <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="email">
+                Correo Electrónico
               </label>
               <div className="relative">
-                <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">badge</span>
+                <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
                 <input
-                  id="fullName"
+                  id="email"
                   className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
-                  placeholder="Tu nombre y apellido"
+                  placeholder="ejemplo@institucion.edu"
                   required
-                  type="text"
-                  value={fullName}
-                  onChange={(event) => setFullName(event.target.value)}
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
             </div>
-          ) : null}
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="email">
-              Correo Electrónico
-            </label>
-            <div className="relative">
-              <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
-              <input
-                id="email"
-                className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
-                placeholder="ejemplo@institucion.edu"
-                required
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
+          ) : (
+            <div className="flex flex-col gap-1.5">
+              <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="username">
+                Nombre de usuario
+              </label>
+              <div className="relative">
+                <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
+                <input
+                  id="username"
+                  className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
+                  placeholder="Tu nombre de usuario"
+                  required
+                  type="text"
+                  autoComplete="username"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
@@ -126,6 +174,7 @@ export default function Login() {
                 placeholder="••••••••"
                 required
                 type="password"
+                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />

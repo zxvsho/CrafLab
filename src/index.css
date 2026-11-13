@@ -51,6 +51,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html[data-theme='claro'] {
+  color-scheme: light;
+  --c-primary: 102 128 95;
+  --c-on-primary: 255 255 255;
+  --c-primary-container: 222 232 213;
+  --c-on-primary-container: 39 55 35;
+  --c-secondary: 83 125 116;
+  --c-on-secondary: 255 255 255;
+  --c-secondary-container: 218 234 228;
+  --c-on-secondary-container: 37 58 51;
+  --c-surface: 246 243 234;
+  --c-surface-dim: 222 219 207;
+  --c-surface-container-lowest: 255 253 247;
+  --c-surface-container-low: 241 238 229;
+  --c-surface-container: 235 231 220;
+  --c-surface-container-high: 228 224 212;
+  --c-surface-container-highest: 219 215 203;
+  --c-on-surface: 45 53 59;
+  --c-on-surface-variant: 86 99 90;
+  --c-outline: 103 117 107;
+  --c-outline-variant: 193 201 189;
+  --c-background: 246 243 234;
+  --c-on-background: 45 53 59;
+  --c-error: 180 35 50;
+  --c-error-container: 252 225 226;
+  --c-on-error-container: 123 29 36;
+  --c-primary-fixed: 222 232 213;
+  --c-primary-fixed-dim: 166 190 151;
+  --c-on-primary-fixed: 39 55 35;
+  --c-secondary-fixed: 218 234 228;
+  --c-secondary-fixed-dim: 157 187 178;
+  --c-on-secondary-fixed: 37 58 51;
+  --c-tertiary-fixed: 240 226 198;
+  --c-on-tertiary-fixed: 63 51 32;
+  --c-tertiary-container: 237 226 202;
+  --c-on-tertiary-container: 74 60 39;
+  --c-surface-variant: 228 224 212;
+  --c-inverse-surface: 48 58 51;
+  --c-inverse-on-surface: 246 243 234;
+  --c-inverse-primary: 166 190 151;
+}
+
 html[data-theme='dracula'] {
   --c-primary: 189 147 249;
   --c-on-primary: 40 42 54;

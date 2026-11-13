@@ -64,18 +64,30 @@ export function AuthProvider({ children }) {
     }
   }, [loadProfile])
 
-  async function signIn(email, password) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+  async function signIn(username, password) {
+    const { data, error: loginError } = await supabase.functions.invoke('login-with-username', {
+      body: { username, password },
+    })
+    if (loginError) return { error: loginError }
+    if (!data?.access_token || !data?.refresh_token) {
+      return { error: new Error('El servidor devolvió una respuesta de inicio de sesión inválida.') }
+    }
+
+    const { error } = await supabase.auth.setSession({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+    })
     return { error }
   }
 
-  async function signUp(email, password, fullName) {
+  async function signUp(email, password, fullName, username) {
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
           full_name: fullName,
+          username: username.trim().toLowerCase(),
         },
       },
     })

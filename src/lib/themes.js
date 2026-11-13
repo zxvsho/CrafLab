@@ -1,4 +1,5 @@
 export const THEMES = [
+  { id: 'claro', label: 'Claro', icon: 'light_mode', swatch: '#a7c080', browserColor: '#f6f3ea' },
   { id: 'everforest', label: 'Everforest', icon: 'forest', swatch: '#a7c080', browserColor: '#2d353b' },
   { id: 'dracula', label: 'Dracula', icon: 'dark_mode', swatch: '#bd93f9', browserColor: '#282a36' },
   { id: 'gruvbox', label: 'Gruvbox', icon: 'contrast', swatch: '#fabd2f', browserColor: '#282828' },

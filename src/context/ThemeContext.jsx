@@ -16,12 +16,14 @@ function getInitialTheme() {
 
 export function ThemeProvider({ children }) {
   const [themeId, setThemeId] = useState(getInitialTheme)
+  const [menuOpen, setMenuOpen] = useState(false)
   const theme = THEMES.find(({ id }) => id === themeId) ?? THEMES[0]
 
   useLayoutEffect(() => {
     const root = document.documentElement
     root.dataset.theme = theme.id
-    root.classList.add('dark')
+    root.classList.toggle('dark', theme.id !== 'claro')
+    root.style.colorScheme = theme.id === 'claro' ? 'light' : 'dark'
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme.browserColor)
 
     try {
@@ -42,10 +44,7 @@ export function ThemeProvider({ children }) {
       }
 
       event.preventDefault()
-      setThemeId((currentThemeId) => {
-        const currentIndex = THEMES.findIndex(({ id }) => id === currentThemeId)
-        return THEMES[(currentIndex + 1) % THEMES.length].id
-      })
+      setMenuOpen((isOpen) => !isOpen)
     }
 
     window.addEventListener('keydown', handleThemeShortcut)
@@ -53,7 +52,7 @@ export function ThemeProvider({ children }) {
   }, [])
 
   return (
-    <ThemeContext.Provider value={{ theme, themes: THEMES, setTheme: setThemeId }}>
+    <ThemeContext.Provider value={{ theme, themes: THEMES, setTheme: setThemeId, menuOpen, setMenuOpen }}>
       {children}
     </ThemeContext.Provider>
   )
