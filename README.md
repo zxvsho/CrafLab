@@ -17,7 +17,7 @@ La interfaz está desarrollada con React y Vite. El backend usa Supabase para au
 
 El acceso a la información se restringe por roles y políticas Row Level Security (RLS) en PostgreSQL, de modo que la seguridad no depende solo de ocultar opciones en la interfaz. El frontend se puede alojar en Vercel y conectarse al proyecto Supabase que contiene la base de datos.
 
-El registro público crea cuentas con rol de estudiante. Para habilitar al primer administrador, el responsable del proyecto debe asignar `admin` al usuario desde Supabase SQL Editor:
+El registro público crea cuentas con rol de estudiante. Para cambiar un rol desde Supabase, abre **Table Editor → profiles**, selecciona la cuenta y elige `admin`, `teacher` o `student` en el campo `role`. El campo usa un tipo enumerado para evitar errores de escritura. También se puede usar SQL Editor:
 
 ```sql
 update public.profiles
@@ -25,12 +25,4 @@ set role = 'admin'
 where username = lower('TU_USUARIO');
 ```
 
-Para cada profesor, primero se crea una cuenta normal y el responsable le asigna el rol:
-
-```sql
-update public.profiles
-set role = 'teacher'
-where username = lower('USUARIO_DEL_PROFESOR');
-```
-
-Luego un administrador crea el registro docente, vincula esa cuenta y asigna sus grupos. Para acceder con cualquier rol, se inicia sesión con el nombre de usuario y contraseña de esa cuenta.
+Después de asignar `teacher`, un administrador crea el registro docente, vincula la cuenta y asigna sus grupos en CrafLab. Para matricular un estudiante en una asignatura, asígnalo a un grupo en **Matrículas**. Para acceder con cualquier rol, se inicia sesión con el nombre de usuario y contraseña de esa cuenta.
