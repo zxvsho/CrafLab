@@ -3,25 +3,122 @@
 @tailwind utilities;
 
 :root {
+  --c-primary: 2 36 72;
+  --c-on-primary: 255 255 255;
+  --c-primary-container: 30 58 95;
+  --c-on-primary-container: 138 164 207;
+  --c-secondary: 0 103 125;
+  --c-on-secondary: 255 255 255;
+  --c-secondary-container: 80 217 254;
+  --c-on-secondary-container: 0 92 112;
+  --c-surface: 250 249 252;
+  --c-surface-dim: 218 217 221;
+  --c-surface-container-lowest: 255 255 255;
+  --c-surface-container-low: 244 243 247;
+  --c-surface-container: 238 237 241;
+  --c-surface-container-high: 233 231 235;
+  --c-surface-container-highest: 227 226 230;
+  --c-on-surface: 26 28 30;
+  --c-on-surface-variant: 67 71 78;
+  --c-outline: 116 119 127;
+  --c-outline-variant: 196 198 207;
+  --c-background: 250 249 252;
+  --c-on-background: 26 28 30;
+  --c-error: 186 26 26;
+  --c-error-container: 255 218 214;
+  --c-on-error-container: 147 0 10;
+  --c-primary-fixed: 213 227 255;
+  --c-primary-fixed-dim: 173 200 245;
+  --c-on-primary-fixed: 0 28 59;
+  --c-secondary-fixed: 179 235 255;
+  --c-secondary-fixed-dim: 76 214 251;
+  --c-on-secondary-fixed: 0 31 39;
+  --c-tertiary-fixed: 255 221 178;
+  --c-on-tertiary-fixed: 41 24 0;
+  --c-tertiary-container: 80 51 0;
+  --c-on-tertiary-container: 198 155 95;
+  --c-surface-variant: 227 226 230;
+  --c-inverse-surface: 47 48 51;
+  --c-inverse-on-surface: 241 240 244;
+  --c-inverse-primary: 173 200 245;
   font-family: 'Inter', sans-serif;
-  color: #1a1c1e;
-  background: #faf9fc;
+  color: rgb(var(--c-on-background));
+  background: rgb(var(--c-background));
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html[data-theme='noche'] {
+  color-scheme: dark;
+  --c-primary: 170 199 255;
+  --c-on-primary: 0 35 73;
+  --c-primary-container: 25 54 91;
+  --c-on-primary-container: 208 224 255;
+  --c-secondary: 105 215 245;
+  --c-on-secondary: 0 53 67;
+  --c-secondary-container: 0 78 96;
+  --c-on-secondary-container: 185 238 255;
+  --c-surface: 17 24 32;
+  --c-surface-dim: 13 19 26;
+  --c-surface-container-lowest: 10 16 22;
+  --c-surface-container-low: 22 30 39;
+  --c-surface-container: 27 37 47;
+  --c-surface-container-high: 37 48 60;
+  --c-surface-container-highest: 47 59 72;
+  --c-on-surface: 231 237 245;
+  --c-on-surface-variant: 194 204 216;
+  --c-outline: 143 155 169;
+  --c-outline-variant: 69 82 96;
+  --c-background: 17 24 32;
+  --c-on-background: 231 237 245;
+  --c-error: 255 180 171;
+  --c-error-container: 147 0 10;
+  --c-on-error-container: 255 218 214;
+  --c-surface-variant: 66 77 90;
+  --c-inverse-surface: 227 226 230;
+  --c-inverse-on-surface: 26 28 30;
+  --c-inverse-primary: 30 58 95;
+}
+
+html[data-theme='oceano'] {
+  --c-primary: 0 82 98;
+  --c-primary-container: 0 85 102;
+  --c-on-primary-container: 176 233 243;
+  --c-secondary: 0 102 121;
+  --c-secondary-container: 80 217 230;
+  --c-on-secondary-container: 0 67 82;
+  --c-secondary-fixed: 179 239 245;
+  --c-secondary-fixed-dim: 87 209 222;
+}
+
+html[data-theme='bosque'] {
+  --c-primary: 29 82 53;
+  --c-primary-container: 32 92 60;
+  --c-on-primary-container: 185 236 197;
+  --c-secondary: 50 105 66;
+  --c-secondary-container: 191 232 199;
+  --c-on-secondary-container: 25 66 39;
+  --c-secondary-fixed: 204 237 211;
+  --c-secondary-fixed-dim: 136 202 154;
+  --c-on-secondary-fixed: 12 41 22;
+  --c-tertiary-container: 90 61 19;
+  --c-on-tertiary-container: 255 222 173;
+}
+
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #faf9fc;
-  color: #1a1c1e;
+  background: rgb(var(--c-background));
+  color: rgb(var(--c-on-background));
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 #root {

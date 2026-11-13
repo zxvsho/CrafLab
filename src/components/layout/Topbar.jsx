@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { getInitials } from '../../lib/utils'
+import ThemeSwitcher from './ThemeSwitcher'
 
 export default function Topbar({ onMenuClick, showMenuButton = false, title = 'CrafLab' }) {
   const { profile } = useAuth()
@@ -25,6 +26,7 @@ export default function Topbar({ onMenuClick, showMenuButton = false, title = 'C
       </div>
 
       <div className="flex flex-1 items-center justify-end gap-3">
+        <ThemeSwitcher />
         <div className="hidden w-full max-w-xl items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 focus-within:border-secondary md:flex">
           <span className="material-symbols-outlined mr-2 text-outline">search</span>
           <input

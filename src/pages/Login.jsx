@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import ThemeSwitcher from '../components/layout/ThemeSwitcher'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -57,7 +58,10 @@ export default function Login() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-surface-container-low px-margin-mobile py-margin-mobile text-on-surface md:px-margin-desktop md:py-margin-desktop">
+    <main className="relative flex min-h-screen items-center justify-center bg-surface-container-low px-margin-mobile py-margin-mobile text-on-surface md:px-margin-desktop md:py-margin-desktop">
+      <div className="fixed right-4 top-4 z-30">
+        <ThemeSwitcher />
+      </div>
       <section className="flex w-full max-w-[420px] flex-col gap-8 rounded-xl border border-outline-variant bg-surface p-8 shadow-[0px_2px_4px_rgba(30,58,95,0.05)] md:p-10">
         <header className="flex flex-col items-center gap-2 text-center">
           <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-lg bg-primary-container text-on-primary-container">
