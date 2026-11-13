@@ -7,10 +7,10 @@ const STORAGE_KEY = 'crafLabTheme'
 function getInitialTheme() {
   try {
     const savedTheme = window.localStorage.getItem(STORAGE_KEY)
-    return THEMES.some(({ id }) => id === savedTheme) ? savedTheme : 'claro'
+    return THEMES.some(({ id }) => id === savedTheme) ? savedTheme : 'everforest'
   } catch (error) {
     console.error('No se pudo leer el tema guardado.', error)
-    return 'claro'
+    return 'everforest'
   }
 }
 
@@ -21,7 +21,8 @@ export function ThemeProvider({ children }) {
   useLayoutEffect(() => {
     const root = document.documentElement
     root.dataset.theme = theme.id
-    root.classList.toggle('dark', theme.colorScheme === 'dark')
+    root.classList.add('dark')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme.browserColor)
 
     try {
       window.localStorage.setItem(STORAGE_KEY, theme.id)
