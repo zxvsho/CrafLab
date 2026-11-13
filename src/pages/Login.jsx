@@ -8,7 +8,6 @@ export default function Login() {
   const { user, profile, profileLoading, signIn, signUp } = useAuth()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -37,9 +36,9 @@ export default function Login() {
     setSuccess('')
 
     if (mode === 'register') {
-      const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(' ')
-      if (!firstName.trim()) {
-        setError('El nombre es obligatorio.')
+      const fullName = [username.trim(), lastName.trim()].filter(Boolean).join(' ')
+      if (!username.trim()) {
+        setError('El nombre de usuario es obligatorio.')
         setLoading(false)
         return
       }
@@ -87,7 +86,7 @@ export default function Login() {
             <>
               <div className="flex flex-col gap-1.5">
                 <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="username">
-                  Nombre de usuario
+                  Nombre (usuario para iniciar sesión)
                 </label>
                 <div className="relative">
                   <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
@@ -106,25 +105,7 @@ export default function Login() {
                     onChange={(event) => setUsername(event.target.value)}
                   />
                 </div>
-                <p className="text-xs text-on-surface-variant">Este será el nombre para iniciar sesión.</p>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="firstName">
-                  Nombre
-                </label>
-                <div className="relative">
-                  <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">badge</span>
-                  <input
-                    id="firstName"
-                    className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
-                    placeholder="Tu nombre"
-                    required
-                    type="text"
-                    autoComplete="given-name"
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
-                  />
-                </div>
+                <p className="text-xs text-on-surface-variant">El mismo nombre se mostrará en tu perfil y servirá para iniciar sesión.</p>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="lastName">
