@@ -8,7 +8,8 @@ export default function Login() {
   const { user, profile, profileLoading, signIn, signUp } = useAuth()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [fullName, setFullName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -36,6 +37,13 @@ export default function Login() {
     setSuccess('')
 
     if (mode === 'register') {
+      const fullName = [firstName.trim(), lastName.trim()].filter(Boolean).join(' ')
+      if (!firstName.trim()) {
+        setError('El nombre es obligatorio.')
+        setLoading(false)
+        return
+      }
+
       const { error: signUpError } = await signUp(email, password, fullName, username)
 
       if (signUpError) {
@@ -101,19 +109,37 @@ export default function Login() {
                 <p className="text-xs text-on-surface-variant">Este será el nombre para iniciar sesión.</p>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="fullName">
-                  Nombre completo
+                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="firstName">
+                  Nombre
                 </label>
                 <div className="relative">
                   <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">badge</span>
                   <input
-                    id="fullName"
+                    id="firstName"
                     className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
-                    placeholder="Tu nombre y apellido"
+                    placeholder="Tu nombre"
                     required
                     type="text"
-                    value={fullName}
-                    onChange={(event) => setFullName(event.target.value)}
+                    autoComplete="given-name"
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-body-sm font-body-sm text-on-surface-variant" htmlFor="lastName">
+                  Apellido (opcional)
+                </label>
+                <div className="relative">
+                  <span className="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">badge</span>
+                  <input
+                    id="lastName"
+                    className="w-full rounded-md border border-outline-variant bg-surface py-2.5 pl-10 pr-4 text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary-container"
+                    placeholder="Tu apellido"
+                    type="text"
+                    autoComplete="family-name"
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
                   />
                 </div>
               </div>
