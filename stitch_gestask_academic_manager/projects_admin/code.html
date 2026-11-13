@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proyectos - GesTask Admin</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#ffddb2",
+                        "inverse-surface": "#2f3033",
+                        "on-tertiary-fixed": "#291800",
+                        "on-surface": "#1a1c1e",
+                        "tertiary-fixed-dim": "#edbf7f",
+                        "on-surface-variant": "#43474e",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#455f87",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1a1c1e",
+                        "primary": "#022448",
+                        "on-secondary-fixed": "#001f27",
+                        "tertiary-container": "#503300",
+                        "background": "#faf9fc",
+                        "on-tertiary-fixed-variant": "#60410c",
+                        "on-secondary": "#ffffff",
+                        "outline": "#74777f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#adc8f5",
+                        "surface-bright": "#faf9fc",
+                        "surface-container-high": "#e9e7eb",
+                        "primary-fixed": "#d5e3ff",
+                        "outline-variant": "#c4c6cf",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#1e3a5f",
+                        "surface-container": "#eeedf1",
+                        "on-primary-fixed": "#001c3b",
+                        "on-secondary-fixed-variant": "#004e5f",
+                        "secondary-container": "#50d9fe",
+                        "inverse-primary": "#adc8f5",
+                        "surface": "#faf9fc",
+                        "surface-container-highest": "#e3e2e6",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e2e6",
+                        "inverse-on-surface": "#f1f0f4",
+                        "on-primary-container": "#8aa4cf",
+                        "surface-dim": "#dad9dd",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#4cd6fb",
+                        "on-secondary-container": "#005c70",
+                        "secondary": "#00677d",
+                        "surface-container-low": "#f4f3f7",
+                        "on-tertiary-container": "#c69b5f",
+                        "on-primary-fixed-variant": "#2d486d",
+                        "tertiary": "#341f00",
+                        "secondary-fixed": "#b3ebff",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max": "1440px",
+                        "margin-desktop": "32px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low shadow-sm fixed left-0 top-0 h-full w-[280px] flex flex-col h-full p-4 space-y-2 hidden md:flex border-r border-outline-variant z-20">
+<!-- Header -->
+<div class="flex items-center gap-3 mb-6 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-md">
+                G
+            </div>
+<div>
+<h2 class="text-label-md font-label-md text-primary font-black">GesTask Admin</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Academic Management</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 space-y-1">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Projects (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold translate-x-1 transition-transform text-label-md font-label-md shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="folder_copy" style="font-variation-settings: 'FILL' 1;">folder_copy</span>
+<span>Projects</span>
+</a>
+<!-- Reports (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span>Reports</span>
+</a>
+</nav>
+<!-- Footer -->
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[280px] w-full min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 border-none bg-surface-container-low rounded-full text-body-sm font-body-sm focus:ring-2 focus:ring-secondary focus:bg-surface transition-all w-64 text-on-surface placeholder:text-on-surface-variant" placeholder="Buscar..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md ml-2 cursor-pointer border border-outline-variant">
+                    A
+                </div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop max-w-[1440px] w-full mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary">Proyectos</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Gestiona los proyectos académicos activos.</p>
+</div>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg flex items-center gap-2 hover:bg-on-secondary-container transition-colors shadow-sm text-label-md font-label-md">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Nuevo Proyecto
+                </button>
+</div>
+<!-- Projects Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center text-primary mb-2">
+<span class="material-symbols-outlined text-[28px]">science</span>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-error-container flex items-center justify-center text-on-surface-variant hover:text-error transition-colors" title="Eliminar">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Laboratorio de Física II</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-1">
+                        Proyecto final de termodinámica aplicada. Los estudiantes diseñarán un motor Stirling funcional.
+                    </p>
+<div class="pt-4 border-t border-surface-container-highest flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">12</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span class="text-label-md font-label-md">8/15</span>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-label-md font-label-md">En Proceso</span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-secondary-fixed rounded-lg flex items-center justify-center text-secondary mb-2">
+<span class="material-symbols-outlined text-[28px]">code</span>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-error-container flex items-center justify-center text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Desarrollo Web Avanzado</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-1">
+                        Creación de una plataforma e-commerce con React y Node.js para el semestre de otoño.
+                    </p>
+<div class="pt-4 border-t border-surface-container-highest flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">24</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span class="text-label-md font-label-md">2/10</span>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-surface-container-high text-on-surface rounded-full text-label-md font-label-md">Pendiente</span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface border border-outline-variant rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container mb-2">
+<span class="material-symbols-outlined text-[28px]">history_edu</span>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-error-container flex items-center justify-center text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Investigación Histórica</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-1">
+                        Análisis de fuentes primarias sobre la revolución industrial. Entrega de ensayo final requerido.
+                    </p>
+<div class="pt-4 border-t border-surface-container-highest flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-label-md font-label-md">8</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span class="text-label-md font-label-md">5/5</span>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-[#d1fae5] text-[#065f46] rounded-full text-label-md font-label-md">Finalizado</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+</body></html>
