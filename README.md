@@ -17,4 +17,20 @@ La interfaz está desarrollada con React y Vite. El backend usa Supabase para au
 
 El acceso a la información se restringe por roles y políticas Row Level Security (RLS) en PostgreSQL, de modo que la seguridad no depende solo de ocultar opciones en la interfaz. El frontend se puede alojar en Vercel y conectarse al proyecto Supabase que contiene la base de datos.
 
-El registro público crea cuentas con rol de estudiante. Los roles de profesor y administrador deben asignarse a cuentas existentes por el responsable del sistema; los profesores también deben vincularse a un registro docente y a sus grupos.
+El registro público crea cuentas con rol de estudiante. Para habilitar al primer administrador, el responsable del proyecto debe asignar `admin` al usuario desde Supabase SQL Editor:
+
+```sql
+update public.profiles
+set role = 'admin'
+where username = lower('TU_USUARIO');
+```
+
+Para cada profesor, primero se crea una cuenta normal y el responsable le asigna el rol:
+
+```sql
+update public.profiles
+set role = 'teacher'
+where username = lower('USUARIO_DEL_PROFESOR');
+```
+
+Luego un administrador crea el registro docente, vincula esa cuenta y asigna sus grupos. Para acceder con cualquier rol, se inicia sesión con el nombre de usuario y contraseña de esa cuenta.

@@ -76,7 +76,7 @@ export default function ThemeSwitcher() {
               {theme.id === option.id ? <span className="material-symbols-outlined text-[18px]" aria-hidden="true">check</span> : null}
             </button>
           ))}
-          <p className="px-3 pb-1 pt-2 text-[10px] text-on-surface-variant">T para abrir o cerrar este menú</p>
+          <p className="px-3 pb-1 pt-2 text-[10px] text-on-surface-variant">Alt+T para abrir o cerrar este menú</p>
         </div>
       ) : null}
     </div>
