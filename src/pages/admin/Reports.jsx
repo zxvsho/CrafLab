@@ -18,7 +18,9 @@ const csvHeaders = [
 ]
 
 function csvCell(value) {
-  return `"${String(value ?? '').replaceAll('"', '""')}"`
+  const text = String(value ?? '')
+  const safeText = /^[\t\r\n ]*[=+\-@]/.test(text) ? `'${text}` : text
+  return `"${safeText.replaceAll('"', '""')}"`
 }
 
 export default function Reports() {
