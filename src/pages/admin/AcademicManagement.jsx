@@ -82,7 +82,10 @@ function getLabel(record) {
 }
 
 function initialValues(fields) {
-  return Object.fromEntries(fields.map(({ key, type }) => [key, type === 'date' ? new Date().toISOString().slice(0, 10) : '']))
+  return Object.fromEntries(fields.map(({ key, type, options }) => [
+    key,
+    type === 'date' ? new Date().toISOString().slice(0, 10) : options?.[0]?.[0] ?? '',
+  ]))
 }
 
 export default function AcademicManagement({ resource }) {
