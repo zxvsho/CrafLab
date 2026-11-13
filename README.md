@@ -1,6 +1,6 @@
-# GesTask — Sistema de Gestión Académica
+# CrafLab — Sistema de Gestión Académica
 
-GesTask es una aplicación web para organizar la gestión académica de una institución educativa. Permite administrar estudiantes, profesores, asignaturas, grupos, matrículas y calificaciones, y conserva los módulos originales de proyectos y tareas.
+CrafLab es una aplicación web para organizar la gestión académica de una institución educativa. Permite administrar estudiantes, profesores, asignaturas, grupos, matrículas y calificaciones, y conserva los módulos originales de proyectos y tareas.
 
 ## Funcionalidades
 
