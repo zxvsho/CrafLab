@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { getInitials } from '../../lib/utils'
 
-export default function Topbar({ onMenuClick, showMenuButton = false, title = 'GesTask' }) {
+export default function Topbar({ onMenuClick, showMenuButton = false, title = 'CrafLab' }) {
   const { profile } = useAuth()
   const [query, setQuery] = useState('')
 

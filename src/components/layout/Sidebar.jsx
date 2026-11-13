@@ -23,15 +23,15 @@ export default function Sidebar({ mobileOpen = false, onClose }) {
   const content = (
     <>
       <div className="mb-8 px-4 py-2">
-        <h1 className="text-headline-md font-headline-md font-black text-primary">GesTask</h1>
+        <h1 className="text-headline-md font-headline-md font-black text-primary">CrafLab</h1>
       </div>
 
       <div className="mb-6 flex items-center gap-3 px-4">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-label-md font-label-md text-on-primary-container">
-          {getInitials(profile?.full_name || 'GesTask')}
+          {getInitials(profile?.full_name || 'CrafLab')}
         </div>
         <div>
-          <div className="text-label-md font-label-md text-on-surface">{profile?.full_name || 'Administrador GesTask'}</div>
+          <div className="text-label-md font-label-md text-on-surface">{profile?.full_name || 'Administrador CrafLab'}</div>
           <div className="text-body-sm font-body-sm text-on-surface-variant">{profile?.role || 'Usuario'}</div>
         </div>
       </div>

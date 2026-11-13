@@ -65,7 +65,7 @@ export default function Login() {
               task_alt
             </span>
           </div>
-          <h1 className="text-headline-lg font-headline-lg text-primary tracking-tight">GesTask</h1>
+          <h1 className="text-headline-lg font-headline-lg text-primary tracking-tight">CrafLab</h1>
           <p className="text-body-sm font-body-sm text-on-surface-variant">Portal de Gestión Académica</p>
         </header>
 

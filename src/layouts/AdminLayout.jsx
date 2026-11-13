@@ -10,7 +10,7 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-background text-on-background">
       <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
       <div className="flex min-h-screen flex-col md:ml-[280px]">
-        <Topbar showMenuButton onMenuClick={() => setMobileOpen((value) => !value)} title="GesTask — Administración" />
+        <Topbar showMenuButton onMenuClick={() => setMobileOpen((value) => !value)} title="CrafLab — Administración" />
         <main className="flex-1 overflow-auto p-margin-mobile md:p-margin-desktop">
           <Outlet />
         </main>
