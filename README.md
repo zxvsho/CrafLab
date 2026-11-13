@@ -1,39 +1,96 @@
-# GesTask — Gestión Académica
+# GesTask — Sistema de Gestión Académica
 
-Aplicación React/Vite conectada a Supabase. Mantiene los módulos existentes de proyectos y tareas e incorpora gestión académica para estudiantes, profesores, asignaturas, grupos, matrículas y calificaciones.
+Aplicación web para administrar estudiantes, profesores, asignaturas, grupos, matrículas y calificaciones, conservando los módulos originales de proyectos y tareas.
+
+## Arquitectura
+
+- **Frontend:** React, Vite y React Router.
+- **Backend y base de datos:** Supabase, que proporciona PostgreSQL, autenticación y API REST.
+- **Autorización:** roles en `public.profiles` y políticas PostgreSQL Row Level Security (RLS).
+- **Despliegue del frontend:** Vercel.
+
+El navegador usa la API de Supabase con la clave pública `anon`/publishable. No se requiere un servidor Express ni una base de datos PostgreSQL adicional en Vercel. La clave pública no sustituye a RLS: las políticas de la base de datos son las que protegen los datos.
+
+## Requisitos
+
+- Node.js compatible con la versión de Vite instalada.
+- Un proyecto Supabase.
+- Para desplegar: una cuenta de GitHub con acceso al repositorio y una cuenta de Vercel.
 
 ## Desarrollo local
 
-1. Instala Node.js y las dependencias con `npm install`.
-2. Copia `.env.example` a `.env` y configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` con los valores públicos de tu proyecto Supabase.
-3. Ejecuta `npm run dev`.
-
-No uses una clave `service_role` en el navegador ni en variables `VITE_*`.
-
-## Preparar Supabase
-
-Aplica `supabase/migrations/20261113000000_academic_management.sql` desde el SQL Editor de Supabase o con Supabase CLI enlazada al proyecto. La migración crea las tablas académicas, habilita RLS y aplica las políticas de acceso por rol.
-
-Los usuarios se autentican mediante Supabase Auth y cada cuenta nueva recibe un perfil de estudiante. Para preparar cuentas de administrador o profesor para una demostración:
-
-1. Crea/invita la cuenta desde Supabase Auth.
-2. Enlaza su fila de `profiles` con una fila de `teachers` para profesores, y con una fila de `students` para estudiantes.
-3. Asigna el rol `admin` o `teacher` a la fila correspondiente de `profiles` desde el SQL Editor como operador del proyecto. Nunca permitas que el cliente público modifique su propio rol.
-4. Crea asignaturas, grupos, matrículas y notas desde la aplicación.
-
-Por ejemplo, después de crear la cuenta en Auth, reemplaza el correo de ejemplo y ejecuta como operador:
-
-```sql
-update public.profiles set role = 'admin' where email = 'admin@example.edu';
+```bash
+npm ci
+cp .env.example .env
+npm run dev
 ```
 
-Para un profesor, usa `role = 'teacher'`. Verifica que la consulta actualice exactamente una fila. No se crean cuentas ni contraseñas predeterminadas en esta migración.
+Configura `.env` con los datos del proyecto Supabase:
 
-La aplicación no crea usuarios administradores ni contraseñas predeterminadas. Las cuentas reales dependen del proyecto Supabase y deben aprovisionarse allí antes de la sustentación. El RLS también debe probarse en el proyecto desplegado: las restricciones de rutas de React son solo una capa adicional.
+```dotenv
+VITE_SUPABASE_URL=https://<project-ref>.supabase.co
+VITE_SUPABASE_ANON_KEY=<publishable-or-anon-key>
+```
 
-## Verificación
+El prefijo `VITE_` hace que esos valores estén disponibles en el navegador; por eso solo se debe usar la clave pública. **Nunca** incluyas una clave `service_role`, `secret` o una contraseña de PostgreSQL en el frontend, en variables `VITE_*` o en Git.
 
-- `npm run lint`
-- `npm run build`
+## Base de datos Supabase / PostgreSQL
 
-En Vercel configura las mismas dos variables públicas de Supabase en los entornos que correspondan y vuelve a desplegar. El archivo `.env` local está excluido de Git; configura las variables de producción directamente en Vercel.
+La migración [20261113000000_academic_management.sql](./supabase/migrations/20261113000000_academic_management.sql) crea el esquema académico, activa RLS y define políticas de acceso. Incluye las tablas `profiles`, `students`, `teachers`, `subjects`, `groups`, `enrollments` y `grades`.
+
+Si usas el proyecto Supabase de producción ya preparado para esta aplicación, la migración está aplicada y no necesitas crear otra base de datos. Para instalar en un proyecto Supabase nuevo:
+
+1. Abre el **SQL Editor** del proyecto y ejecuta la migración, o enlaza Supabase CLI y aplica las migraciones versionadas:
+
+   ```bash
+   npx supabase login
+   npx supabase link --project-ref <project-ref>
+   npx supabase db push
+   ```
+
+2. En **Authentication**, habilita el método de acceso que vayas a utilizar y crea o invita las cuentas de prueba.
+3. Las cuentas nuevas tienen rol `student` por defecto. Un operador debe asignar `teacher` o `admin` desde un entorno confiable y asociar la cuenta a la fila correspondiente de `teachers` o `students`.
+4. Comprueba los permisos con cuentas de cada rol antes de una demostración.
+
+Ejemplo para promover una cuenta ya creada (ejecutar como operador en el SQL Editor; reemplazar el correo y verificar que se actualice exactamente una fila):
+
+```sql
+update public.profiles
+set role = 'admin'
+where email = 'admin@example.edu';
+```
+
+No se crean usuarios ni contraseñas predeterminadas. Nunca permitas que una cuenta pública se asigne su propio rol.
+
+## Roles de la aplicación
+
+- **Administrador:** gestiona estudiantes, profesores, asignaturas, grupos, matrículas y calificaciones; consulta el panel académico.
+- **Profesor:** consulta sus grupos y estudiantes inscritos; administra calificaciones de sus grupos.
+- **Estudiante:** consulta sus propias matrículas, asignaturas y calificaciones.
+
+La interfaz ajusta la navegación al rol, y RLS aplica las restricciones en PostgreSQL. Ocultar una ruta o un botón no es una medida de seguridad por sí sola.
+
+## Publicar en GitHub y desplegar en Vercel
+
+El repositorio está en [github.com/zxvsho/CrafLab](https://github.com/zxvsho/CrafLab).
+
+1. En Vercel, selecciona **Add New → Project** e importa `zxvsho/CrafLab`.
+2. Deja **Root Directory** como `./` y usa el preset **Vite**. Los valores habituales son:
+   - Build command: `npm run build`
+   - Output directory: `dist`
+   - Install command: `npm ci`
+3. En **Environment Variables**, agrega para Preview y Production:
+   - `VITE_SUPABASE_URL`: URL del proyecto Supabase.
+   - `VITE_SUPABASE_ANON_KEY`: clave pública `anon`/publishable del mismo proyecto.
+4. Guarda las variables y vuelve a desplegar. Vite las incorpora durante el build.
+
+Vercel ofrece una integración de Supabase, pero no es necesario provisionar una segunda base de datos. Si conectas la integración existente, verifica igualmente que las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` estén definidas; los nombres que la integración agrega pueden no llevar el prefijo `VITE_` que requiere esta aplicación.
+
+## Comprobaciones
+
+```bash
+npm run lint
+npm run build
+```
+
+Antes de una demostración, confirma el inicio de sesión, que cada cuenta tenga el perfil y las relaciones académicas requeridas, y que un usuario no pueda leer ni modificar datos fuera de su rol.
