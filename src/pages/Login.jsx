@@ -48,7 +48,7 @@ export default function Login() {
       if (signUpError) {
         setError('No se pudo crear la cuenta. El usuario puede estar ocupado o los datos no ser válidos.')
       } else {
-        setSuccess('Cuenta creada. Si tu proyecto requiere confirmación de correo, revisa tu bandeja de entrada.')
+        setSuccess('Cuenta creada con rol de estudiante. Ya puedes iniciar sesión con tu usuario y contraseña.')
         setMode('login')
       }
 

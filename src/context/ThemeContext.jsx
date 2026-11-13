@@ -39,7 +39,7 @@ export function ThemeProvider({ children }) {
       const isEditingText = target instanceof HTMLElement
         && (target.isContentEditable || target.closest('input, textarea, select, [contenteditable="true"]'))
 
-      if (event.key.toLowerCase() !== 't' || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || isEditingText) {
+      if (event.key.toLowerCase() !== 't' || !event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.repeat || isEditingText) {
         return
       }
 
